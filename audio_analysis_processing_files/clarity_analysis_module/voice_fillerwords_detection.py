@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # filler_detector.py
 from __future__ import annotations
 
@@ -97,6 +96,3 @@ def analyze_fillers(
         "filler_score": filler_score,
         "message":      message,
     }
-=======
-#filler words detection module
->>>>>>> 00555d3f5feaa893f974aefee632b8654d1d0732
