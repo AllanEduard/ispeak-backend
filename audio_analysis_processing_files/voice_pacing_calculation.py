@@ -88,12 +88,3 @@ def calculate_pacing(
         "total_pause_seconds": round(total_pause_time, 2),
     }
 
-if __name__ == "__main__":
-    segments = [
-        {"start": 0.0, "end": 3.0, "text": "Hello this is a test"},
-        {"start": 3.5, "end": 6.0, "text": "of the pacing function"},
-        {"start": 7.2, "end": 10.0, "text": "with some pauses in between"},
-    ]
-    audio_duration = 10.0
-    result = calculate_pacing(segments, audio_duration)
-    print(result)

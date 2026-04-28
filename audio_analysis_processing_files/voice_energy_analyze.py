@@ -149,26 +149,3 @@ def analyze_per_word(y, sr, whisper_result) -> List[Dict]:
             })
 
     return word_results
-
-
-# ---------------- MAIN PIPELINE ----------------
-
-def generate_full_analysis(temp_path: str, model):
-    y, sr = librosa.load(temp_path, sr=16000, mono=True)
-
-    result = model.transcribe(
-        temp_path,
-        word_timestamps=True
-    )
-
-    # Global analysis
-    energy_analysis = analyze_energy(y, sr)
-
-    # Per-word analysis
-    word_analysis = analyze_per_word(y, sr, result)
-
-    return {
-        "text": result.get("text", ""),
-        "energy": energy_analysis,
-        "word_analysis": word_analysis
-    }

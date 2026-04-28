@@ -181,14 +181,3 @@ def analyze_pronunciation(
         "message": _feedback_message(final_score),
     }
 
-if __name__ == "__main__":
-    segments = [
-        {"text": "Hello", "start": 0.0, "end": 0.5, "confidence": 0.95},
-        {"text": "this", "start": 0.5, "end": 0.8, "confidence": 0.88},
-        {"text": "is", "start": 0.8, "end": 1.0, "confidence": 0.72},
-        {"text": "a", "start": 1.0, "end": 1.1, "confidence": 0.60},
-        {"text": "test", "start": 1.1, "end": 1.6, "confidence": 0.91},
-    ]
-
-    result = analyze_pronunciation(segments)
-    print(result)

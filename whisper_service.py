@@ -63,11 +63,11 @@ def _compute_energy_score(energy_stats: Dict[str, Any]) -> float:
     - is_monotone: penalize monotone pitch
     """
     score = 100.0
-
+    
     loudness_status = energy_stats.get("loudness_status", "")
-    if loudness_status == "Your voice is too low. Try speaking louder.":
+    if loudness_status == "Too quiet (whispering)":
         score -= 40.0
-    elif loudness_status == "Your voice is too loud. Try speaking softer.":
+    elif loudness_status == "Too loud (shouting)":
         score -= 30.0
     elif loudness_status == "Silence":
         return 0.0
@@ -164,21 +164,31 @@ def generate_full_analysis(file_path: str, model) -> Dict[str, Any]:
 
     # ---------- RESULT ----------
     return {
-    "transcription":     text,
-    "pacingScore":       pacing_score,
-    "clarityScore":      clarity_score,
-    "energyScore":       energy_score,
-    "overallScore":      overall_score,
-    "pronunciationStats": {
-        "score":             pronunciation_score,
-        "problematic_words": pronunciation_stats.get("problematic_words", []),
-        "message":           pronunciation_stats.get("message", ""),
+    "transcription": text,
+    "scores": {
+        "overall":    overall_score,
+        "clarity":    clarity_score,
+        "pacing":     pacing_score,
+        "energy":     energy_score,
     },
-    "fillerStats": {
-        "score":        filler_score,
-        "filler_count": filler_stats.get("filler_count", 0),
-        "filler_rate":  filler_stats.get("filler_rate", 0.0),
-        "filler_words": filler_stats.get("filler_words", []),
-        "message":      filler_stats.get("message", ""),
+    "pronunciation": {
+        "score":             pronunciation_score,
+        "message":           pronunciation_stats.get("message", ""),
+        "problematic_words": [
+            {
+                "word":       w["word"],
+                "confidence": w["confidence"],
+                "duration":   float(w["duration"]),
+                "issue":      w["issue"],
+            }
+            for w in pronunciation_stats.get("problematic_words", [])
+        ],
+    },
+    "fillers": {
+        "score":   filler_score,
+        "count":   filler_stats.get("filler_count", 0),
+        "rate":    filler_stats.get("filler_rate", 0.0),
+        "words":   filler_stats.get("filler_words", []),
+        "message": filler_stats.get("message", ""),
     },
 }
