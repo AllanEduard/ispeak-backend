@@ -184,11 +184,11 @@ def generate_full_analysis(file_path: str, model) -> Dict[str, Any]:
             for w in pronunciation_stats.get("problematic_words", [])
         ],
     },
-    "fillers": {
-        "score":   filler_score,
-        "count":   filler_stats.get("filler_count", 0),
-        "rate":    filler_stats.get("filler_rate", 0.0),
-        "words":   filler_stats.get("filler_words", []),
-        "message": filler_stats.get("message", ""),
-    },
+    #"fillers": {
+    #    "score":   filler_score,
+    #    "count":   filler_stats.get("filler_count", 0),
+    #    "rate":    filler_stats.get("filler_rate", 0.0),
+    #    "words":   filler_stats.get("filler_words", []),
+    #    "message": filler_stats.get("message", ""),
+    #},
 }
